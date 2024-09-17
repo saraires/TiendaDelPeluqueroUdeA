@@ -61,10 +61,9 @@ public class TiendaDelPeluqueroUdeA {
             String id = randomID(randomCodigo, i + 1); // Genera un ID aleatorio
 
             if (validarRandomID(id)) {
-                int tipoIndex = i % 5; // Índice para obtener tipo de artículo
-                int posicionRandom = random.nextInt(nombresProductos[tipoIndex].length);
-                String nombreAleatorio = nombresProductos[tipoIndex][posicionRandom];
-                double precio = preciosProductos[tipoIndex][posicionRandom];
+                int posicionRandom = random.nextInt(nombresProductos[randomIndex].length);
+                String nombreAleatorio = nombresProductos[randomIndex][posicionRandom];
+                double precio = preciosProductos[randomIndex][posicionRandom];
 
                 // Crear el producto y agregarlo al HashMap
                 Producto producto = new Producto(id, nombreAleatorio, precio);
@@ -72,7 +71,6 @@ public class TiendaDelPeluqueroUdeA {
             }
         }
 
-        // Imprimir los 1,000,000 artículos
         for (Producto producto : hashMapProductos.values()) {
             System.out.println(producto);
         }
