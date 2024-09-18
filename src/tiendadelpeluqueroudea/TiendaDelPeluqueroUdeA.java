@@ -40,6 +40,12 @@ public class TiendaDelPeluqueroUdeA {
         {99.99, 79.99, 49.99}, // Precios para Plancha
         {6.99, 7.49, 8.99} // Precios para Crema
     };
+            // Creo las colas a llenar
+    public static Queue<Producto> colaShampoos = new LinkedList<>();
+    public static Queue<Producto> colaCeras = new LinkedList<>();
+    public static Queue<Producto> colaSecadores = new LinkedList<>();
+    public static Queue<Producto> colaPlanchas = new LinkedList<>();
+    public static Queue<Producto> colaCremas = new LinkedList<>();
 
 // Método para generar ID's
     public static String randomID(String codigo, int numero) {
@@ -56,12 +62,7 @@ public class TiendaDelPeluqueroUdeA {
         Random random = new Random();
         String[] codigo = {"SH", "CE", "SE", "PL", "CR"};
 
-        // Creo las colas a llenar
-        Queue<Producto> colaShampoos = new LinkedList<>();
-        Queue<Producto> colaCeras = new LinkedList<>();
-        Queue<Producto> colaSecadores = new LinkedList<>();
-        Queue<Producto> colaPlanchas = new LinkedList<>();
-        Queue<Producto> colaCremas = new LinkedList<>();
+
 
         // Generar 1,000,000 artículos
         for (int i = 0; i < 1000000; i++) {
