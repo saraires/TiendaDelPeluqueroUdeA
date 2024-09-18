@@ -10,6 +10,7 @@ import java.util.Random;
 import java.util.regex.Pattern;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.*;
 
 /**
  *
@@ -19,10 +20,8 @@ import java.util.Queue;
  */
 public class TiendaDelPeluqueroUdeA {
 
-    // TODO code application logic here
-    // Menú
-    // Método para ejcutar comprar.
-    // Método para calular artículos.
+    public static Scanner scanner = new Scanner(System.in);
+
     // Método para generar los articulos
     private static final String[][] nombresProductos = {
         {"Shampoo Savital", "Shampoo Pantene", "Shampoo H&S"},// SH  
@@ -40,12 +39,109 @@ public class TiendaDelPeluqueroUdeA {
         {99.99, 79.99, 49.99}, // Precios para Plancha
         {6.99, 7.49, 8.99} // Precios para Crema
     };
-            // Creo las colas a llenar
+
+    // Creo las colas a llenar
     public static Queue<Producto> colaShampoos = new LinkedList<>();
     public static Queue<Producto> colaCeras = new LinkedList<>();
     public static Queue<Producto> colaSecadores = new LinkedList<>();
     public static Queue<Producto> colaPlanchas = new LinkedList<>();
     public static Queue<Producto> colaCremas = new LinkedList<>();
+    public static double precioPorVender = 0;
+    public static double precioInicial = 0;
+
+    public static int menu() {
+        while (true) {
+            System.out.println("Seleccione una opción:");
+            System.out.println("1. Comprar producto");
+            System.out.println("2. Finalizar el programa");
+
+            try {
+                int opcion1 = scanner.nextInt();
+                return opcion1;
+            } catch (Exception e) {
+                System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        }
+    }
+
+    public static int submenu() {
+        System.out.println("Seleccione el producto:");
+        System.out.println("1. Shampo para el cabello.");
+        System.out.println("2. Cera para peinar.");
+        System.out.println("3. Secador de cabello.");
+        System.out.println("4. Plancha de cabello.");
+        System.out.println("5. Crema humectante.");
+
+        int opcion2 = scanner.nextInt();
+        return opcion2;
+    }
+
+    // Método para comprar productos
+    private static void comprarProductos(int opcion) {
+        System.out.println("Ingresa la cantidad del producto que deseas llevar");
+        int cantidad = scanner.nextInt();
+
+        switch (opcion) {
+            case 1:
+                if (cantidad > colaShampoos.size()) {
+                    System.out.println("No tenemos suficientes articulos");
+                    return;
+                } else {
+                    for (int i = 1; i <= cantidad; i++) {
+                        Producto shampoo = colaShampoos.poll();
+                        precioPorVender -= shampoo.getPrecio();
+                    }
+                }
+                break;
+            case 2:
+                if (cantidad > colaCeras.size()) {
+                    System.out.println("No tenemos suficientes articulos");
+                    return;
+                } else {
+                    for (int i = 1; i <= cantidad; i++) {
+
+                        Producto cera = colaCeras.poll();
+                        precioPorVender -= cera.getPrecio();
+                    }
+                }
+                break;
+            case 3:
+                if (cantidad > colaSecadores.size()) {
+                    System.out.println("No tenemos suficientes articulos");
+                    return;
+                } else {
+                    for (int i = 1; i <= cantidad; i++) {
+                        Producto secador = colaSecadores.poll();
+                        precioPorVender -= secador.getPrecio();
+                    }
+                }
+                break;
+            case 4:
+                if (cantidad > colaPlanchas.size()) {
+                    System.out.println("No tenemos suficientes articulos");
+                    return;
+                } else {
+                    for (int i = 1; i <= cantidad; i++) {
+                        Producto plancha = colaPlanchas.poll();
+                        precioPorVender -= plancha.getPrecio();
+                    }
+                }
+                break;
+            case 5:
+                if (cantidad > colaCremas.size()) {
+                    System.out.println("No tenemos suficientes articulos");
+                    return;
+                } else {
+                    for (int i = 1; i <= cantidad; i++) {
+                        Producto crema = colaCremas.poll();
+                        precioPorVender -= crema.getPrecio();
+                    }
+                }
+                break;
+            default:
+                System.out.println("Opción no válida. Intente nuevamente.");
+        }
+    }
 
 // Método para generar ID's
     public static String randomID(String codigo, int numero) {
@@ -61,8 +157,6 @@ public class TiendaDelPeluqueroUdeA {
         Map<String, Producto> hashMapProductos = new HashMap<>();
         Random random = new Random();
         String[] codigo = {"SH", "CE", "SE", "PL", "CR"};
-
-
 
         // Generar 1,000,000 artículos
         for (int i = 0; i < 1000000; i++) {
@@ -80,17 +174,16 @@ public class TiendaDelPeluqueroUdeA {
                 hashMapProductos.put(id, producto);
             }
         }
-        
-        double precioTotal = 0;
-        
-        for (Producto producto : hashMapProductos.values()){
-            precioTotal += producto.getPrecio();
-        }
-        
-        System.out.println(precioTotal);
-        
-        
 
+        for (Producto producto : hashMapProductos.values()) {
+            precioPorVender += producto.getPrecio();
+        }
+
+        precioInicial = precioPorVender;
+
+        System.out.println(precioPorVender);
+
+        // Llenado de colas desde el hashmap
         for (Producto producto : hashMapProductos.values()) {
             //System.out.println(producto);
 
@@ -113,9 +206,27 @@ public class TiendaDelPeluqueroUdeA {
                 System.out.println(producto.toString() + " no se encuentra en las referencias");
             }
         }
-        
+
         hashMapProductos.clear();
 
-        System.out.println("The size of the map is " + hashMapProductos.size());
+        while (true) {
+            int opcion = menu();
+
+            if (opcion == 1) {
+                int opcion2 = submenu();
+                if (opcion2 > 5 || opcion2 < 1) {
+                    System.out.println("Opcion no valida, intente nuevamente");
+                } else {
+                    comprarProductos(opcion2);
+                }
+            } else {
+                int articulosPorVender = colaShampoos.size() + colaSecadores.size() + colaCeras.size() + colaPlanchas.size() + colaCremas.size();
+                System.out.println("El precio total de los articulos pendientes por vender es: " + precioPorVender);
+                System.out.println("La cantidad de articulos pendientes por vender es: " + articulosPorVender);
+                System.out.println("Se vendieron " + (1000000 - articulosPorVender) + " articulos, con un valor total de: " + (precioInicial - precioPorVender) + " pesos");
+                System.out.println("Muchas gracias por usar nuestros servicios!");
+                break;
+            }
+        }
     }
 }
