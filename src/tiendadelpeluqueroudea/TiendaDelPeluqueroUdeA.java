@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.regex.Pattern;
-
+import java.util.*;
 /**
  *
  * @author blandonm
@@ -23,11 +23,11 @@ public class TiendaDelPeluqueroUdeA {
     // Método para calular artículos.
     // Método para generar los articulos
     private static final String[][] nombresProductos = {
-        {"Shampoo Savital", "Shampoo Pantene", "Shampoo H&S"},// AB  
-        {"Cera Ego", "Cera Revlon", "Cera Got2b"},// VC
-        {"Secador Remington", "Secador Dyson", "Secador Conair"}, // SP
+        {"Shampoo Savital", "Shampoo Pantene", "Shampoo H&S"},// SH  
+        {"Cera Ego", "Cera Revlon", "Cera Got2b"},// CE
+        {"Secador Remington", "Secador Dyson", "Secador Conair"}, // SE
         {"Plancha GHD", "Plancha Babyliss", "Plancha Remington"}, //PL
-        {"Crema Nivea", "Crema Dove", "Crema Eucerin"} //ÑL
+        {"Crema Nivea", "Crema Dove", "Crema Eucerin"} //CR
     };
 
     // Array de precios de los productos
@@ -70,10 +70,48 @@ public class TiendaDelPeluqueroUdeA {
                 hashMapProductos.put(id, producto);
             }
         }
-
-        for (Producto producto : hashMapProductos.values()) {
-            System.out.println(producto);
+        Scanner scanner = new Scanner(System.in);
+        boolean continuar = true;
+        
+        while (continuar) {
+            System.out.println("Seleccione una opción:");
+            System.out.println("1. Comprar producto");
+            System.out.println("2. Finalizar el programa");
+            
+            int opcion1 = scanner.nextInt();
+            scanner.nextLine();  // Limpiar el buffer
+            
+            switch (opcion1) {
+                case 1:
+                    comprarProductos(scanner);
+                    break;
+                //case 2:
+                    //finalizarPrograma();
+                    //continuar = false;
+                    //break;
+                default:
+                    System.out.println("Opción no válida. Intente nuevamente.");
+            }
+        }
+        
+        scanner.close();
+                    
+        }
+    private static void comprarProductos(Scanner scanner) {
+        System.out.println("Seleccione el producto:");
+        System.out.println("1. Shampo para el cabello.");           
+        System.out.println("2. Cera para peinar.");            
+        System.out.println("3. Secador de cabello.");
+        System.out.println("4. Plancha de cabello.");
+        System.out.println("5. Crema humectante.");
+        int opcion2 = scanner.nextInt();
+        scanner.nextLine();             
+        switch (opcion2) {
+            case 1:
+                System.out.println();
         }
     }
-
 }
+    
+
+
