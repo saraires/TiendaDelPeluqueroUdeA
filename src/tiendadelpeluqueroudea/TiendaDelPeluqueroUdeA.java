@@ -51,35 +51,49 @@ public class TiendaDelPeluqueroUdeA {
 
     public static int menu() {
         while (true) {
+            int opcion1 = 0;
             System.out.println("Seleccione una opción:");
             System.out.println("1. Comprar producto");
             System.out.println("2. Finalizar el programa");
 
             try {
-                int opcion1 = scanner.nextInt();
+                opcion1 = scanner.nextInt();
                 return opcion1;
             } catch (Exception e) {
-                System.out.println("Opción no válida. Intente nuevamente.");
+                return opcion1;
             }
         }
     }
 
     public static int submenu() {
+        int opcion2 = 0;
         System.out.println("Seleccione el producto:");
         System.out.println("1. Shampo para el cabello.");
         System.out.println("2. Cera para peinar.");
         System.out.println("3. Secador de cabello.");
         System.out.println("4. Plancha de cabello.");
         System.out.println("5. Crema humectante.");
-
-        int opcion2 = scanner.nextInt();
-        return opcion2;
+        
+        try {
+            opcion2 = scanner.nextInt();
+            return opcion2;
+        } catch (Exception e) {
+            return opcion2;
+        }
+        
     }
 
     // Método para comprar productos
     private static void comprarProductos(int opcion) {
+        int cantidad = 0;
         System.out.println("Ingresa la cantidad del producto que deseas llevar");
-        int cantidad = scanner.nextInt();
+        
+        try {
+            cantidad = scanner.nextInt();
+        } catch (Exception e) {
+            opcion = 0;
+        }
+        
 
         switch (opcion) {
             case 1:
@@ -210,6 +224,7 @@ public class TiendaDelPeluqueroUdeA {
         hashMapProductos.clear();
 
         while (true) {
+            scanner = new Scanner(System.in);
             int opcion = menu();
 
             if (opcion == 1) {
@@ -219,13 +234,15 @@ public class TiendaDelPeluqueroUdeA {
                 } else {
                     comprarProductos(opcion2);
                 }
-            } else {
+            } else if (opcion == 2) {
                 int articulosPorVender = colaShampoos.size() + colaSecadores.size() + colaCeras.size() + colaPlanchas.size() + colaCremas.size();
                 System.out.println("El precio total de los articulos pendientes por vender es: " + precioPorVender);
                 System.out.println("La cantidad de articulos pendientes por vender es: " + articulosPorVender);
-                System.out.println("Se vendieron " + (1000000 - articulosPorVender) + " articulos, con un valor total de: " + (precioInicial - precioPorVender) + " pesos");
+                System.out.println("Se vendieron " + (1000000 - articulosPorVender) + " articulos, por un valor total de: " + (precioInicial - precioPorVender) + " pesos");
                 System.out.println("Muchas gracias por usar nuestros servicios!");
                 break;
+            } else {
+                System.out.println("Opción no válida. Intente nuevamente.");
             }
         }
     }
