@@ -55,7 +55,7 @@ public class TiendaDelPeluqueroUdeA {
         Map<String, Producto> hashMapProductos = new HashMap<>();
         Random random = new Random();
         String[] codigo = {"SH", "CE", "SE", "PL", "CR"};
-        
+
         // Creo las colas a llenar
         Queue<Producto> colaShampoos = new LinkedList<>();
         Queue<Producto> colaCeras = new LinkedList<>();
@@ -79,33 +79,42 @@ public class TiendaDelPeluqueroUdeA {
                 hashMapProductos.put(id, producto);
             }
         }
+        
+        double precioTotal = 0;
+        
+        for (Producto producto : hashMapProductos.values()){
+            precioTotal += producto.getPrecio();
+        }
+        
+        System.out.println(precioTotal);
+        
+        
 
         for (Producto producto : hashMapProductos.values()) {
             //System.out.println(producto);
-            
-            if(producto.getId().contains("SH")){
+
+            if (producto.getId().contains("SH")) {
                 colaShampoos.add(producto);
-            } 
-            else if(producto.getId().contains("CE")){
-            colaCeras.add(producto);
-            }
-            else if(producto.getId().contains("SE")){
-            colaSecadores.add(producto);
-            }
-            else if(producto.getId().contains("PL")){
-            colaPlanchas.add(producto);
-            }
-            else if(producto.getId().contains("CR")){
-            colaCremas.add(producto);
-            }
-            else{
-            System.out.println(producto.toString() + " no se encuentra en las referencias");
+
+            } else if (producto.getId().contains("CE")) {
+                colaCeras.add(producto);
+
+            } else if (producto.getId().contains("SE")) {
+                colaSecadores.add(producto);
+
+            } else if (producto.getId().contains("PL")) {
+                colaPlanchas.add(producto);
+
+            } else if (producto.getId().contains("CR")) {
+                colaCremas.add(producto);
+
+            } else {
+                System.out.println(producto.toString() + " no se encuentra en las referencias");
             }
         }
         
-        System.out.println("The size of the map is " + hashMapProductos.size()); 
+        hashMapProductos.clear();
+
+        System.out.println("The size of the map is " + hashMapProductos.size());
     }
 }
-    
-
-
