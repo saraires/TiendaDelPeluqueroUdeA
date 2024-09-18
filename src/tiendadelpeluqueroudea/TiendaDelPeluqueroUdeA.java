@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.regex.Pattern;
-import java.util.*;
 /**
  *
  * @author blandonm
@@ -69,10 +68,13 @@ public class TiendaDelPeluqueroUdeA {
                 Producto producto = new Producto(id, nombreAleatorio, precio);
                 hashMapProductos.put(id, producto);
             }
+        }
+
         for (Producto producto : hashMapProductos.values()) {
             System.out.println(producto);
         }
-        }
+        
+        System.out.println("The size of the map is " + hashMapProductos.size()); 
     }
 }
     
