@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.regex.Pattern;
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  *
  * @author blandonm
@@ -52,6 +55,13 @@ public class TiendaDelPeluqueroUdeA {
         Map<String, Producto> hashMapProductos = new HashMap<>();
         Random random = new Random();
         String[] codigo = {"SH", "CE", "SE", "PL", "CR"};
+        
+        // Creo las colas a llenar
+        Queue<Producto> colaShampoos = new LinkedList<>();
+        Queue<Producto> colaCeras = new LinkedList<>();
+        Queue<Producto> colaSecadores = new LinkedList<>();
+        Queue<Producto> colaPlanchas = new LinkedList<>();
+        Queue<Producto> colaCremas = new LinkedList<>();
 
         // Generar 1,000,000 artículos
         for (int i = 0; i < 1000000; i++) {
@@ -71,7 +81,26 @@ public class TiendaDelPeluqueroUdeA {
         }
 
         for (Producto producto : hashMapProductos.values()) {
-            System.out.println(producto);
+            //System.out.println(producto);
+            
+            if(producto.getId().contains("SH")){
+                colaShampoos.add(producto);
+            } 
+            else if(producto.getId().contains("CE")){
+            colaCeras.add(producto);
+            }
+            else if(producto.getId().contains("SE")){
+            colaSecadores.add(producto);
+            }
+            else if(producto.getId().contains("PL")){
+            colaPlanchas.add(producto);
+            }
+            else if(producto.getId().contains("CR")){
+            colaCremas.add(producto);
+            }
+            else{
+            System.out.println(producto.toString() + " no se encuentra en las referencias");
+            }
         }
         
         System.out.println("The size of the map is " + hashMapProductos.size()); 
